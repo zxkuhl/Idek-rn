@@ -1,0 +1,22 @@
+{
+    "robloxLsp.diagnostics.globals": [
+        "getgenv",
+        "gethui",
+        "import",
+        "isfile",
+        "readfile",
+        "writefile",
+        "makefolder",
+        "isfolder",
+        "listfiles",
+        "syn",
+        "http",
+        "request",
+        "http_request",
+        "DEV_MODE",
+        "USING_JALON_LOADER",
+        "delfile",
+        "_JALON_EXECUTOR_INTERNAL",
+        "fluxus"
+    ]
+}
