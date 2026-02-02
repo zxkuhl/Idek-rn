@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payload Generator </title>
+    <title>Payload Generator2</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
         form { margin-bottom: 20px; }
@@ -23,9 +23,10 @@
     <select id="type">
         <option value="">-- Choose --</option>
         <option value="discord-webhook">Discord Webhook with Embed</option>
-        <!-- Add more options here for other types, e.g., <option value="slack">Slack Message</option> -->
+        <option value="custom-script">Custom Script</option> <!-- New Option -->
     </select>
 
+    <!-- Discord Webhook Form -->
     <form id="discord-webhook-form" class="hidden">
         <h2>Discord Webhook</h2>
         <label for="webhook-url">Webhook URL:</label>
@@ -65,7 +66,13 @@
         <button type="button" onclick="sendDiscordWebhook()">Send</button>
     </form>
 
-    <!-- Add more forms here for other types -->
+    <!-- Custom Script Form -->
+    <form id="custom-script-form" class="hidden">
+        <h2>Custom Script</h2>
+        <label for="custom-code">Enter your JavaScript code:</label>
+        <textarea id="custom-code" placeholder="Write your code here..." style="height:200px;"></textarea>
+        <button type="button" onclick="runCustomScript()">Run Script</button>
+    </form>
 
     <div id="response"></div>
 
@@ -73,12 +80,14 @@
         const typeSelect = document.getElementById('type');
         const forms = document.querySelectorAll('form');
 
+        // Show/hide forms based on dropdown selection
         typeSelect.addEventListener('change', (e) => {
             forms.forEach(form => form.classList.add('hidden'));
             const selectedForm = document.getElementById(`${e.target.value}-form`);
             if (selectedForm) selectedForm.classList.remove('hidden');
         });
 
+        // Discord webhook sender
         async function sendDiscordWebhook() {
             const webhookUrl = document.getElementById('webhook-url').value;
             const username = document.getElementById('username').value;
@@ -117,6 +126,17 @@
                 } else {
                     document.getElementById('response').innerText = `Error: ${response.statusText}`;
                 }
+            } catch (error) {
+                document.getElementById('response').innerText = `Error: ${error.message}`;
+            }
+        }
+
+        // Custom script runner
+        function runCustomScript() {
+            const code = document.getElementById('custom-code').value;
+            try {
+                new Function(code)();
+                document.getElementById('response').innerText = 'Custom script executed successfully!';
             } catch (error) {
                 document.getElementById('response').innerText = `Error: ${error.message}`;
             }
